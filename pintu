@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class pintu : MonoBehaviour
+{
+    public GameObject text;
+    public GameObject button;
+
+    private Animator bukaPintu;
+
+    private bool openDoor;
+    private bool inReach;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "inReach")
+        {
+            text.SetActive(true);
+            button.SetActive(true);
+        }
+    }
+
+    private void Awake()
+    {
+        bukaPintu = gameObject.GetComponent<Animator>();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "inReach")
+        {
+            text.SetActive(false);
+            button.SetActive(false);
+        }
+    }
+
+    public void tombol()
+    {
+        animasiPintu();
+    }
+
+    private void animasiPintu()
+    {
+        if(!openDoor)
+        {
+            bukaPintu.Play("buka");
+            openDoor = true;
+        }
+        else
+        {
+            bukaPintu.Play("tutup");
+            openDoor = false;
+        }
+    }
+}
